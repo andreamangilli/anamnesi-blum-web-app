@@ -592,26 +592,28 @@ export function CompactResultsStep({ data, onNext, isLoading }: CompactResultsSt
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       className="space-y-8"
+      data-step-content
     >
       {/* Pulsanti di Azione */}
       <Card className="bg-gradient-to-r from-[#3A5762] to-[#21333A] text-white">
         <CardContent className="p-6">
-          <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
-            <div>
-              <h3 className="font-semibold mb-2">📋 I tuoi risultati sono pronti!</h3>
+          <div className="flex flex-col space-y-4">
+            <div className="text-center md:text-left">
+              <h3 className="font-semibold mb-2 text-lg">📋 I tuoi risultati sono pronti!</h3>
               <p className="text-sm opacity-90">Scarica l&apos;analisi completa o procedi con la prenotazione</p>
             </div>
-            <div className="flex space-x-3">
+            <div className="flex flex-col sm:flex-row gap-3 w-full">
               <Button 
                 onClick={async () => {
                   // 💾 Salva automaticamente i dati quando scarica il PDF
                   await sendToGoogleSheets();
                   await downloadPDF();
                 }}
-                className="bg-white text-[#3A5762] hover:bg-gray-100 flex items-center space-x-2 font-medium"
+                className="bg-white text-[#3A5762] hover:bg-gray-100 flex items-center justify-center space-x-2 font-medium py-3 px-6 min-h-[48px] flex-1 touch-manipulation"
+                size="lg"
               >
-                <FileDown className="w-4 h-4" />
-                <span>Scarica PDF</span>
+                <FileDown className="w-5 h-5" />
+                <span className="font-semibold">Scarica PDF</span>
               </Button>
               <Button 
                 onClick={async () => {
@@ -619,10 +621,11 @@ export function CompactResultsStep({ data, onNext, isLoading }: CompactResultsSt
                   await sendToGoogleSheets();
                   window.open('https://appuntamenti.blumlife.it/v2/#book/category/10/service/59/count/1/provider/any/', '_blank');
                 }}
-                className="bg-white/10 border-2 border-white text-white hover:bg-white hover:text-[#3A5762] flex items-center space-x-2 font-semibold px-4 backdrop-blur-sm"
+                className="bg-white/10 border-2 border-white text-white hover:bg-white hover:text-[#3A5762] active:bg-white active:text-[#3A5762] flex items-center justify-center space-x-2 font-semibold py-3 px-6 min-h-[48px] backdrop-blur-sm flex-1 touch-manipulation"
+                size="lg"
               >
-                <Calendar className="w-4 h-4" />
-                <span className="whitespace-nowrap">Prenota Visita Gratuita</span>
+                <Calendar className="w-5 h-5" />
+                <span className="font-bold text-center">Prenota Visita Gratuita</span>
               </Button>
             </div>
           </div>

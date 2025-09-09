@@ -149,7 +149,19 @@ export function CompactQuestionnaireWizard({ onComplete, onSaveProgress }: Compa
   const handleNext = async () => {
     if (currentStep < TOTAL_STEPS - 1) {
       setCurrentStep(currentStep + 1);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      
+      // 📱 Scroll ottimizzato: vai al contenuto, non all'header
+      setTimeout(() => {
+        const formElement = document.querySelector('[data-step-content]');
+        if (formElement) {
+          // Scroll al contenuto del form con offset per mobile
+          const offsetTop = formElement.getBoundingClientRect().top + window.pageYOffset - 20;
+          window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+        } else {
+          // Fallback: scroll moderato invece che tutto in cima
+          window.scrollTo({ top: 120, behavior: 'smooth' });
+        }
+      }, 100);
     } else {
       setIsLoading(true);
       try {
