@@ -1,10 +1,12 @@
 'use client';
 
-import React from 'react';
+import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 import { 
   CheckCircle2, 
   Download,
@@ -19,7 +21,8 @@ import {
   Shield,
   Target,
   Clock,
-  Award
+  Award,
+  FileDown
 } from 'lucide-react';
 import { CompactQuestionnaireData } from '@/types/questionnaire';
 
@@ -31,8 +34,130 @@ interface CompactResultsStepProps {
 }
 
 export function CompactResultsStep({ data, onNext, isLoading }: CompactResultsStepProps) {
+  const resultsPrintRef = useRef<HTMLDivElement>(null);
+  
   const handleComplete = () => {
     onNext();
+  };
+
+  // Funzione per scaricare PDF
+  const downloadPDF = async () => {
+    if (!resultsPrintRef.current) return;
+    
+    try {
+      const element = resultsPrintRef.current;
+      const canvas = await html2canvas(element, {
+        scale: 2,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: '#ffffff'
+      });
+      
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      
+      const imgWidth = 210;
+      const pageHeight = 295;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      let heightLeft = imgHeight;
+      
+      let position = 0;
+      
+      // Prima pagina
+      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+      
+      // Pagine aggiuntive se necessario
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+      
+      // Nome file con data
+      const today = new Date();
+      const dateStr = today.toISOString().split('T')[0];
+      const fileName = `BLUM-Analisi-${data?.personalData?.email?.split('@')[0] || 'Cliente'}-${dateStr}.pdf`;
+      
+      pdf.save(fileName);
+    } catch (error) {
+      console.error('Errore durante la generazione del PDF:', error);
+      alert('Errore durante la generazione del PDF. Riprova.');
+    }
+  };
+
+  // Funzione per inviare dati a Google Sheets
+  const sendToGoogleSheets = async () => {
+    try {
+      const formattedData = {
+        timestamp: new Date().toISOString(),
+        // Dati personali  
+        email: data?.personalData?.email || '',
+        telefono: data?.personalData?.telefono || '',
+        age: data?.personalData?.age || '',
+        // Lifestyle
+        diet: data?.lifestyle?.diet?.join(', ') || '',
+        exercise: data?.lifestyle?.exercise || '',
+        sleep: data?.lifestyle?.sleep || '',
+        stress: data?.lifestyle?.stress || '',
+        smoking: data?.lifestyle?.smoking ? 'Sì' : 'No',
+        alcohol: data?.lifestyle?.alcohol || '',
+        // Skin profile
+        skinType: data?.skinProfile?.skinType || '',
+        concerns: data?.skinProfile?.concerns?.join(', ') || '',
+        routine: data?.skinProfile?.routine?.join(', ') || '',
+        products: data?.skinProfile?.products?.join(', ') || '',
+        // Goals
+        goals: data?.goals?.goals?.join(', ') || '',
+        timeline: data?.goals?.timeline || '',
+        additionalInfo: data?.goals?.additionalInfo || '',
+        // Medical history
+        conditions: data?.medicalHistory?.conditions?.join(', ') || '',
+        medications: data?.medicalHistory?.medications || '',
+        allergies: data?.medicalHistory?.allergies || '',
+        // Protocollo selezionato
+        selectedProtocol: selectedProtocol
+      };
+
+      // Invio dati all'API per salvataggio in Google Sheets
+      const response = await fetch('/api/save-questionnaire', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formattedData)
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        console.log('✅ Dati salvati in Google Sheets:', result);
+        // Backup locale
+        const existingData = JSON.parse(localStorage.getItem('blum-questionnaires') || '[]');
+        existingData.push(formattedData);
+        localStorage.setItem('blum-questionnaires', JSON.stringify(existingData));
+      } else {
+        throw new Error(result.error || 'Errore sconosciuto');
+      }
+      
+    } catch (error) {
+      console.error('❌ Errore durante il salvataggio:', error);
+      // Salvataggio di emergenza in localStorage
+      try {
+        const formattedData = {
+          timestamp: new Date().toISOString(),
+          email: data?.personalData?.email || '',
+          selectedProtocol: selectedProtocol
+        };
+        const existingData = JSON.parse(localStorage.getItem('blum-questionnaires-backup') || '[]');
+        existingData.push(formattedData);
+        localStorage.setItem('blum-questionnaires-backup', JSON.stringify(existingData));
+        console.log('💾 Salvato backup in localStorage');
+      } catch (backupError) {
+        console.error('Errore anche nel backup:', backupError);
+      }
+    }
   };
 
   // Algoritmo di selezione protocollo basato sui dati del questionario
@@ -440,6 +565,41 @@ export function CompactResultsStep({ data, onNext, isLoading }: CompactResultsSt
       transition={{ duration: 0.5 }}
       className="space-y-8"
     >
+      {/* Pulsanti di Azione */}
+      <Card className="bg-gradient-to-r from-[#3A5762] to-[#21333A] text-white">
+        <CardContent className="p-6">
+          <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+            <div>
+              <h3 className="font-semibold mb-2">📋 I tuoi risultati sono pronti!</h3>
+              <p className="text-sm opacity-90">Scarica l&apos;analisi completa o procedi con la prenotazione</p>
+            </div>
+            <div className="flex space-x-3">
+              <Button 
+                onClick={async () => {
+                  await sendToGoogleSheets();
+                  await downloadPDF();
+                }}
+                className="bg-white text-[#3A5762] hover:bg-gray-100 flex items-center space-x-2"
+              >
+                <FileDown className="w-4 h-4" />
+                <span>Scarica PDF</span>
+              </Button>
+              <Button 
+                onClick={handleComplete}
+                variant="outline"
+                className="border-white text-white hover:bg-white hover:text-[#3A5762] flex items-center space-x-2"
+              >
+                <Calendar className="w-4 h-4" />
+                <span>Prenota Consulenza</span>
+              </Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Container per PDF - tutto il contenuto dei risultati */}
+      <div ref={resultsPrintRef} className="pdf-content bg-white space-y-8">
+      
       {/* Header di Completamento */}
       <Card className="text-center bg-gradient-to-r from-[#E6D7CF] to-[#F0E7E2] border-[#DFC8C2]">
         <CardContent className="p-8">
@@ -820,6 +980,7 @@ export function CompactResultsStep({ data, onNext, isLoading }: CompactResultsSt
         </Button>
       </div>
       
+      </div> {/* Fine container PDF */}
     </motion.div>
   );
 }
