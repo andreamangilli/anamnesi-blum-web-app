@@ -1,0 +1,189 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 200 12% 19%; /* GUNMETAL #21333A */
+    --card: 0 0% 100%;
+    --card-foreground: 200 12% 19%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 200 12% 19%;
+    --primary: 200 26% 32%; /* GUNMETAL #3A5762 */
+    --primary-foreground: 0 0% 98%;
+    --secondary: 25 25% 85%; /* PALE #DFC8C2 */
+    --secondary-foreground: 200 12% 19%;
+    --muted: 48 30% 92%; /* SAGE #EEECE0 */
+    --muted-foreground: 200 12% 35%;
+    --accent: 25 25% 90%; /* PALE #E6D7CF */
+    --accent-foreground: 200 12% 19%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 25 25% 88%; /* PALE lighter */
+    --input: 25 25% 88%;
+    --ring: 200 26% 32%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 200 50% 6%; /* GUNMETAL darkest #04181F */
+    --foreground: 0 0% 98%;
+    --card: 200 30% 12%; /* GUNMETAL #1f242B */
+    --card-foreground: 0 0% 98%;
+    --popover: 200 30% 12%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 200 26% 32%; /* GUNMETAL #3A5762 */
+    --primary-foreground: 0 0% 98%;
+    --secondary: 200 12% 19%; /* GUNMETAL darker */
+    --secondary-foreground: 0 0% 98%;
+    --muted: 200 12% 19%;
+    --muted-foreground: 220 9% 64%;
+    --accent: 200 12% 25%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 200 12% 19%;
+    --input: 200 12% 19%;
+    --ring: 200 26% 32%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* BLUM Elegant Palette - Custom Styles */
+.blum-gradient {
+  background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(200 35% 28%) 100%);
+}
+
+.blum-glass {
+  backdrop-filter: blur(20px);
+  background: rgba(245, 241, 237, 0.85);
+  border: 1px solid rgba(223, 200, 194, 0.2);
+}
+
+.blum-shadow {
+  box-shadow: 0 8px 32px -4px rgb(58 87 98 / 0.1), 0 2px 8px -2px rgb(58 87 98 / 0.05);
+}
+
+.blum-card {
+  @apply bg-white/95 border-[#DFC8C2]/30 shadow-sm backdrop-blur-sm;
+}
+
+/* BLUM Natural Header - Organic Tones */
+.blum-header {
+  background: linear-gradient(135deg, 
+    rgba(154, 155, 137, 1) 0%, 
+    rgba(184, 181, 164, 1) 25%,
+    rgba(200, 197, 176, 1) 50%, 
+    rgba(168, 165, 150, 1) 75%,
+    rgba(139, 141, 122, 0.95) 100%);
+  backdrop-filter: blur(2px);
+}
+
+/* Enhanced Typography */
+.blum-serif {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+}
+
+.blum-text-primary {
+  color: #3A5762;
+}
+
+.blum-text-secondary {
+  color: rgba(58, 87, 98, 0.7);
+}
+
+/* Custom BLUM colors */
+.bg-blum-primary {
+  background-color: #3A5762; /* GUNMETAL */
+}
+
+.bg-blum-secondary {
+  background-color: #DFC8C2; /* PALE */
+}
+
+.bg-blum-accent {
+  background-color: #C8C38F; /* SAGE */
+}
+
+.text-blum-primary {
+  color: #3A5762;
+}
+
+.text-blum-secondary {
+  color: #DFC8C2;
+}
+
+.border-blum-pale {
+  border-color: #E6D7CF;
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar - New York style */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary) / 0.8);
+}
+
+/* Animations */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out;
+}
+
+.animate-slide-in {
+  animation: slide-in 0.5s ease-out;
+}
+
+/* Progress enhancement */
+.progress-enhanced {
+  background: linear-gradient(90deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.8) 100%);
+}
