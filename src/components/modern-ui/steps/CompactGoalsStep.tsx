@@ -24,7 +24,6 @@ export function CompactGoalsStep({ data, onUpdate, onNext }: CompactGoalsStepPro
   const [formData, setFormData] = useState({
     goals: data?.goals?.goals || [],
     timeline: data?.goals?.timeline || '',
-    budget: data?.goals?.budget || '',
     additionalInfo: data?.goals?.additionalInfo || ''
   });
 
@@ -46,12 +45,6 @@ export function CompactGoalsStep({ data, onUpdate, onNext }: CompactGoalsStepPro
     { value: 'long', label: '🎯 1+ anni' }
   ];
 
-  const budgetOptions = [
-    { value: 'low', label: '💰 Sotto €100/mese' },
-    { value: 'medium', label: '💳 €100-300/mese' },
-    { value: 'high', label: '💎 €300-500/mese' },
-    { value: 'premium', label: '👑 €500+/mese' }
-  ];
 
   const updateGoals = (goal: string) => {
     const newGoals = formData.goals.includes(goal)
@@ -60,7 +53,7 @@ export function CompactGoalsStep({ data, onUpdate, onNext }: CompactGoalsStepPro
     setFormData({ ...formData, goals: newGoals });
   };
 
-  const isValidForm = formData.goals.length > 0 && formData.timeline && formData.budget;
+  const isValidForm = formData.goals.length > 0 && formData.timeline;
 
   return (
     <motion.div
@@ -115,23 +108,6 @@ export function CompactGoalsStep({ data, onUpdate, onNext }: CompactGoalsStepPro
               </div>
             </div>
 
-            {/* Budget */}
-            <div className="mb-6">
-              <Label className="text-sm font-medium mb-3 block">💰 Budget *</Label>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                {budgetOptions.map((option) => (
-                  <div key={option.value} className={`p-3 border rounded-lg cursor-pointer text-center transition-colors ${
-                    formData.budget === option.value 
-                      ? 'border-blum-primary bg-blum-secondary/50 text-blum-primary' 
-                      : 'border-slate-200 hover:border-blum-secondary'
-                  }`}
-                  onClick={() => setFormData({ ...formData, budget: option.value })}
-                  >
-                    <span className="text-sm font-medium">{option.label}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
 
             {/* Additional Info */}
             <div>

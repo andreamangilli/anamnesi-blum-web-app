@@ -248,7 +248,6 @@ export interface CompactSkinData {
 export interface CompactGoalsData {
   goals: string[];
   timeline: string;
-  budget: string;
   additionalInfo: string;
 }
 

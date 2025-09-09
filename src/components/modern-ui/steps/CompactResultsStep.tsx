@@ -24,7 +24,7 @@ import {
 import { CompactQuestionnaireData } from '@/types/questionnaire';
 
 interface CompactResultsStepProps {
-  data: CompactQuestionnaireData;
+  data: Partial<CompactQuestionnaireData>;
   onNext: () => void;
   onPrevious: () => void;
   isLoading: boolean;
@@ -143,16 +143,16 @@ export function CompactResultsStep({ data, onNext, isLoading }: CompactResultsSt
     const warnings: string[] = [];
 
     // Analisi abitudini positive
-    if (data?.lifestyle?.exercise >= 3) pros.push('Attività fisica regolare favorisce la circolazione e l&apos;ossigenazione cutanea');
-    if (data?.lifestyle?.sleep >= 7) pros.push('Sonno adeguato ottimizza i processi riparativi cutanei');
+    if (data?.lifestyle?.exercise && data.lifestyle.exercise >= 3) pros.push('Attività fisica regolare favorisce la circolazione e l&apos;ossigenazione cutanea');
+    if (data?.lifestyle?.sleep && data.lifestyle.sleep >= 7) pros.push('Sonno adeguato ottimizza i processi riparativi cutanei');
     if (data?.lifestyle?.diet?.includes('equilibrata')) pros.push('Alimentazione equilibrata supporta la salute della pelle');
-    if (!data?.lifestyle?.smoking) pros.push('Non fumatore: ottimale per la microcircolazione cutanea');
+    if (data?.lifestyle?.smoking === false) pros.push('Non fumatore: ottimale per la microcircolazione cutanea');
 
     // Analisi fattori di rischio
-    if (data?.lifestyle?.exercise < 2) cons.push('Scarsa attività fisica può ridurre l&apos;ossigenazione dei tessuti');
-    if (data?.lifestyle?.sleep < 6) cons.push('Sonno insufficiente compromette i processi riparativi notturni');
-    if (data?.lifestyle?.stress >= 7) cons.push('Alto livello di stress può accelerare l&apos;invecchiamento cutaneo');
-    if (data?.lifestyle?.smoking) cons.push('Il fumo danneggia il collagene e riduce l&apos;efficacia dei trattamenti');
+    if (data?.lifestyle?.exercise && data.lifestyle.exercise < 2) cons.push('Scarsa attività fisica può ridurre l&apos;ossigenazione dei tessuti');
+    if (data?.lifestyle?.sleep && data.lifestyle.sleep < 6) cons.push('Sonno insufficiente compromette i processi riparativi notturni');
+    if (data?.lifestyle?.stress && data.lifestyle.stress >= 7) cons.push('Alto livello di stress può accelerare l&apos;invecchiamento cutaneo');
+    if (data?.lifestyle?.smoking === true) cons.push('Il fumo danneggia il collagene e riduce l&apos;efficacia dei trattamenti');
 
     // Controindicazioni mediche
     if (data?.medicalHistory?.pregnancy) warnings.push('Gravidanza: controindicazione temporanea per tutte le tecnologie HAURA');

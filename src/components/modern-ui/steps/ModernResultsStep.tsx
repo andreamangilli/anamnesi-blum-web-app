@@ -47,7 +47,6 @@ export function ModernResultsStep({ data }: any) {
   // Logica di matching per determinare il protocollo basato sui dati reali
   const determineProtocol = () => {
     const inestetismi = skinProfile.inestetismiPrincipali || [];
-    const budget = clientGoals.budgetRange;
     const aspettative = clientGoals.aspettative;
     const età = personalData.dataNascita ? calculateAge(personalData.dataNascita) : 35;
 
@@ -388,9 +387,6 @@ export function ModernResultsStep({ data }: any) {
     // Raccomandazioni personalizzate
     if (clientGoals?.aspettative === 'miglioramento-sottile') {
       analysis.raccomandazioni.push('Approccio graduale con sedute più diluite per risultati naturali');
-    }
-    if (clientGoals?.budgetRange === 'premium') {
-      analysis.raccomandazioni.push('Protocollo personalizzato con tecnologie advanced e principi attivi premium');
     }
 
     return analysis;
