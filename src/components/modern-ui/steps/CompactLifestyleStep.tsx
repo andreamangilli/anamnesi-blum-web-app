@@ -30,10 +30,16 @@ export function CompactLifestyleStep({ data, onUpdate, onNext }: CompactLifestyl
     alcohol: data?.lifestyle?.alcohol || 'occasionally'
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onUpdate({ lifestyle: formData });
-    onNext();
+    try {
+      await onUpdate({ lifestyle: formData });
+      onNext();
+    } catch (error) {
+      console.error('❌ Errore nel salvare lo stile di vita:', error);
+      // Procede comunque al prossimo step per non bloccare l'utente
+      onNext();
+    }
   };
 
   const dietOptions = [

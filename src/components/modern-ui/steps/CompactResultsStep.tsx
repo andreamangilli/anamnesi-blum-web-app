@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -11,7 +11,6 @@ import {
   CheckCircle2, 
   Download,
   Calendar,
-  Mail,
   Star,
   AlertTriangle,
   TrendingUp,
@@ -35,8 +34,32 @@ interface CompactResultsStepProps {
 
 export function CompactResultsStep({ data, onNext, isLoading }: CompactResultsStepProps) {
   const resultsPrintRef = useRef<HTMLDivElement>(null);
+
+  // 🚀 SALVATAGGIO AUTOMATICO APPENA SI CARICA LA PAGINA FINALE
+  useEffect(() => {
+    const autoSave = async () => {
+      try {
+        console.log('🎯 Salvataggio automatico dei risultati finali...');
+        await sendToGoogleSheets();
+        console.log('✅ Risultati salvati automaticamente in Google Sheets!');
+      } catch (error) {
+        console.error('❌ Errore nel salvataggio automatico:', error);
+      }
+    };
+
+    // Salva automaticamente quando il componente si monta
+    autoSave();
+  }, []);
   
-  const handleComplete = () => {
+  const handleComplete = async () => {
+    try {
+      // 💾 Salva automaticamente i dati quando si completa il questionario
+      await sendToGoogleSheets();
+      console.log('✅ Questionario completato e salvato in Google Sheets!');
+    } catch (error) {
+      console.error('❌ Errore nel salvataggio finale:', error);
+      // Continua comunque con il completamento anche se il salvataggio fallisce
+    }
     onNext();
   };
 
@@ -92,15 +115,20 @@ export function CompactResultsStep({ data, onNext, isLoading }: CompactResultsSt
     try {
       const formattedData = {
         timestamp: new Date().toISOString(),
-        // Dati personali  
+        // Dati personali COMPLETI
+        nome: data?.personalData?.nome || '',
+        cognome: data?.personalData?.cognome || '',  
         email: data?.personalData?.email || '',
         telefono: data?.personalData?.telefono || '',
-        age: data?.personalData?.age || '',
+        // Consensi GDPR
+        consensoTrattamentoDati: data?.personalData?.consensi?.trattamentoDati ? 'Sì' : 'No',
+        consensoMarketing: data?.personalData?.consensi?.comunicazioniMarketing ? 'Sì' : 'No',
+        consensoFoto: data?.personalData?.consensi?.utilizzoFoto ? 'Sì' : 'No',
         // Lifestyle
         diet: data?.lifestyle?.diet?.join(', ') || '',
-        exercise: data?.lifestyle?.exercise || '',
-        sleep: data?.lifestyle?.sleep || '',
-        stress: data?.lifestyle?.stress || '',
+        exercise: data?.lifestyle?.exercise?.toString() || '',
+        sleep: data?.lifestyle?.sleep?.toString() || '',
+        stress: data?.lifestyle?.stress?.toString() || '',
         smoking: data?.lifestyle?.smoking ? 'Sì' : 'No',
         alcohol: data?.lifestyle?.alcohol || '',
         // Skin profile
@@ -112,7 +140,7 @@ export function CompactResultsStep({ data, onNext, isLoading }: CompactResultsSt
         goals: data?.goals?.goals?.join(', ') || '',
         timeline: data?.goals?.timeline || '',
         additionalInfo: data?.goals?.additionalInfo || '',
-        // Medical history
+        // Medical history  
         conditions: data?.medicalHistory?.conditions?.join(', ') || '',
         medications: data?.medicalHistory?.medications || '',
         allergies: data?.medicalHistory?.allergies || '',
@@ -576,21 +604,25 @@ export function CompactResultsStep({ data, onNext, isLoading }: CompactResultsSt
             <div className="flex space-x-3">
               <Button 
                 onClick={async () => {
+                  // 💾 Salva automaticamente i dati quando scarica il PDF
                   await sendToGoogleSheets();
                   await downloadPDF();
                 }}
-                className="bg-white text-[#3A5762] hover:bg-gray-100 flex items-center space-x-2"
+                className="bg-white text-[#3A5762] hover:bg-gray-100 flex items-center space-x-2 font-medium"
               >
                 <FileDown className="w-4 h-4" />
                 <span>Scarica PDF</span>
               </Button>
               <Button 
-                onClick={handleComplete}
-                variant="outline"
-                className="border-white text-white hover:bg-white hover:text-[#3A5762] flex items-center space-x-2"
+                onClick={async () => {
+                  // 💾 Salva automaticamente i dati quando prenota
+                  await sendToGoogleSheets();
+                  window.open('https://appuntamenti.blumlife.it/v2/#book/category/10/service/59/count/1/provider/any/', '_blank');
+                }}
+                className="bg-white/10 border-2 border-white text-white hover:bg-white hover:text-[#3A5762] flex items-center space-x-2 font-semibold px-4 backdrop-blur-sm"
               >
                 <Calendar className="w-4 h-4" />
-                <span>Prenota Consulenza</span>
+                <span className="whitespace-nowrap">Prenota Visita Gratuita</span>
               </Button>
             </div>
           </div>
@@ -895,10 +927,15 @@ export function CompactResultsStep({ data, onNext, isLoading }: CompactResultsSt
             I Tuoi Prossimi Passi
           </h3>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <motion.div 
               whileHover={{ scale: 1.02 }}
-              className="p-4 border border-[#DFC8C2] rounded-lg text-center hover:bg-[#F0E7E2]/30 transition-colors"
+              className="p-4 border border-[#DFC8C2] rounded-lg text-center hover:bg-[#F0E7E2]/30 transition-colors cursor-pointer"
+              onClick={async () => {
+                // 💾 Salva automaticamente i dati quando scarica il PDF
+                await sendToGoogleSheets();
+                await downloadPDF();
+              }}
             >
               <Download className="w-8 h-8 text-[#3A5762] mx-auto mb-2" />
               <h4 className="font-medium text-[#3A5762] mb-1">📄 Scarica Report</h4>
@@ -907,20 +944,16 @@ export function CompactResultsStep({ data, onNext, isLoading }: CompactResultsSt
             
             <motion.div 
               whileHover={{ scale: 1.02 }}
-              className="p-4 border border-[#DFC8C2] rounded-lg text-center hover:bg-[#F0E7E2]/30 transition-colors"
+              className="p-4 border border-[#DFC8C2] rounded-lg text-center hover:bg-[#F0E7E2]/30 transition-colors cursor-pointer"
+              onClick={async () => {
+                // 💾 Salva automaticamente i dati quando prenota
+                await sendToGoogleSheets();
+                window.open('https://appuntamenti.blumlife.it/v2/#book/category/10/service/59/count/1/provider/any/', '_blank');
+              }}
             >
               <Calendar className="w-8 h-8 text-[#3A5762] mx-auto mb-2" />
               <h4 className="font-medium text-[#3A5762] mb-1">📅 Prenota Consulenza</h4>
               <p className="text-sm text-[#3A5762]/70">PRIMA visita GRATUITA</p>
-            </motion.div>
-            
-            <motion.div 
-              whileHover={{ scale: 1.02 }}
-              className="p-4 border border-[#DFC8C2] rounded-lg text-center hover:bg-[#F0E7E2]/30 transition-colors"
-            >
-              <Mail className="w-8 h-8 text-[#3A5762] mx-auto mb-2" />
-              <h4 className="font-medium text-[#3A5762] mb-1">📧 Ricevi via Email</h4>
-              <p className="text-sm text-[#3A5762]/70">Report nella tua casella</p>
             </motion.div>
           </div>
         </CardContent>
@@ -964,10 +997,10 @@ export function CompactResultsStep({ data, onNext, isLoading }: CompactResultsSt
       {/* Complete Button */}
       <div className="flex justify-center">
         <Button
-          onClick={handleComplete}
+          onClick={() => window.open('https://appuntamenti.blumlife.it/v2/#book/category/10/service/59/count/1/provider/any/', '_blank')}
           disabled={isLoading}
           size="lg"
-          className="bg-[#3A5762] hover:bg-[#21333A] text-white px-8 py-3"
+          className="bg-[#3A5762] hover:bg-[#21333A] text-white px-8 py-3 cursor-pointer"
         >
           {isLoading ? (
             <span>⏳ Elaborazione...</span>

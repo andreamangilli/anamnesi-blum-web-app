@@ -29,10 +29,16 @@ export function CompactMedicalHistoryStep({ data, onUpdate, onNext }: CompactMed
     pregnancy: data?.medicalHistory?.pregnancy || false
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onUpdate({ medicalHistory: formData });
-    onNext();
+    try {
+      await onUpdate({ medicalHistory: formData });
+      onNext();
+    } catch (error) {
+      console.error('❌ Errore nel salvare la storia medica:', error);
+      // Procede comunque al prossimo step per non bloccare l'utente
+      onNext();
+    }
   };
 
   const conditions = [

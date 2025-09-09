@@ -71,10 +71,16 @@ export function CompactPersonalDataStep({ data, onUpdate, onNext }: CompactPerso
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onUpdate({ personalData: formData });
-    onNext();
+    try {
+      await onUpdate({ personalData: formData });
+      onNext();
+    } catch (error) {
+      console.error('❌ Errore nel salvare i dati personali:', error);
+      // Procede comunque al prossimo step per non bloccare l'utente
+      onNext();
+    }
   };
 
   const isValidForm = formData.nome && formData.cognome && formData.email && 

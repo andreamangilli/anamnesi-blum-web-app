@@ -1,0 +1,10 @@
+COPY-PASTE HEADERS PER GOOGLE SHEETS - RIGA 1 (A1 → Y1) - 25 COLONNE COMPLETE
+
+Timestamp	Nome	Cognome	Email	Telefono	Consenso GDPR	Consenso Marketing	Consenso Foto	Alimentazione	Esercizio	Sonno	Stress	Fumo	Alcol	Tipo Pelle	Problematiche	Routine	Prodotti	Obiettivi	Timeline	Info Extra	Condizioni	Farmaci	Allergie	Protocollo
+
+ISTRUZIONI:
+1. Apri: https://docs.google.com/spreadsheets/d/1ak8_S-_gF7_mk6nPTqsexEyDwI8ttmTvaSAJfhU24bU/edit
+2. Seleziona cella A1
+3. Copia la riga sopra (tutto da "Timestamp" a "Protocollo")  
+4. Incolla con Ctrl+V
+5. Gli header si distribuiranno automaticamente nelle colonne A-Y (25 colonne totali)

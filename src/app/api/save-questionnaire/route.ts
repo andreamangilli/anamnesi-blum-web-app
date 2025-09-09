@@ -6,6 +6,15 @@ export async function POST(request: Request) {
   try {
     const data = await request.json();
     
+    // Controlla se le credenziali sono configurate
+    if (!process.env.GOOGLE_CLIENT_EMAIL || process.env.GOOGLE_CLIENT_EMAIL.includes('your-project')) {
+      console.error('❌ Google Service Account non configurato!');
+      return NextResponse.json({
+        success: false,
+        error: 'Google Service Account non configurato. Configura il file .env.local con le tue credenziali.'
+      }, { status: 500 });
+    }
+    
     // Configurazione Service Account
     const credentials = {
       type: 'service_account',
@@ -34,16 +43,20 @@ export async function POST(request: Request) {
     // Inizializza Google Sheets API
     const sheets = google.sheets({ version: 'v4', auth });
 
-    // Prepara i dati per la riga (ordine delle colonne)
+    // Prepara i dati per la riga (ordine delle colonne COMPLETO)
     const rowValues = [
       data.timestamp || new Date().toISOString(),
+      data.nome || '',
+      data.cognome || '',
       data.email || '',
       data.telefono || '',
-      data.age || '',
+      data.consensoTrattamentoDati || '',
+      data.consensoMarketing || '',
+      data.consensoFoto || '',
       data.diet || '',
-      data.exercise?.toString() || '',
-      data.sleep?.toString() || '',
-      data.stress?.toString() || '',
+      data.exercise || '',
+      data.sleep || '',
+      data.stress || '',
       data.smoking || '',
       data.alcohol || '',
       data.skinType || '',
@@ -62,7 +75,7 @@ export async function POST(request: Request) {
     // Aggiungi i dati al Google Sheets
     const response = await sheets.spreadsheets.values.append({
       spreadsheetId: SHEET_ID,
-      range: 'A:U', // Range delle colonne A-U
+      range: 'A:Y', // Range delle colonne A-Y (25 colonne totali)
       valueInputOption: 'RAW',
       insertDataOption: 'INSERT_ROWS',
       requestBody: {
@@ -86,6 +99,28 @@ export async function POST(request: Request) {
     if (error instanceof Error) {
       console.error('Error message:', error.message);
       console.error('Error stack:', error.stack);
+      
+      // Errori comuni e soluzioni
+      if (error.message.includes('invalid_grant')) {
+        return NextResponse.json({
+          success: false,
+          error: '🔐 Credenziali Service Account non valide. Controlla GOOGLE_PRIVATE_KEY nel file .env.local'
+        }, { status: 500 });
+      }
+      
+      if (error.message.includes('Forbidden') || error.message.includes('forbidden')) {
+        return NextResponse.json({
+          success: false,
+          error: '🚫 Service Account non ha accesso al Google Sheets. Condividi il foglio con l\'email del service account.'
+        }, { status: 403 });
+      }
+      
+      if (error.message.includes('not found')) {
+        return NextResponse.json({
+          success: false,
+          error: '📄 Google Sheets non trovato. Verifica GOOGLE_SHEET_ID nel file .env.local'
+        }, { status: 404 });
+      }
     }
 
     return NextResponse.json({

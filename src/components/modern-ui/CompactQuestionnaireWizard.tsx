@@ -65,7 +65,62 @@ export function CompactQuestionnaireWizard({ onComplete, onSaveProgress }: Compa
     return () => clearInterval(saveInterval);
   }, [questionnaireData, currentStep, onSaveProgress]);
 
-  const updateQuestionnaireData = (stepData: any) => {
+  // 🔄 Funzione per salvare dati parziali in Google Sheets
+  const savePartialData = async (data: any, step: number) => {
+    try {
+      const partialData = {
+        timestamp: new Date().toISOString(),
+        stepCompleted: step,
+        // Dati personali (step 1)
+        nome: data?.personalData?.nome || '',
+        cognome: data?.personalData?.cognome || '',
+        email: data?.personalData?.email || '',
+        telefono: data?.personalData?.telefono || '',
+        consensoTrattamentoDati: data?.personalData?.consensi?.trattamentoDati ? 'Sì' : 'No',
+        consensoMarketing: data?.personalData?.consensi?.comunicazioniMarketing ? 'Sì' : 'No',
+        consensoFoto: data?.personalData?.consensi?.utilizzoFoto ? 'Sì' : 'No',
+        // Lifestyle (step 2)
+        diet: data?.lifestyle?.diet?.join(', ') || '',
+        exercise: data?.lifestyle?.exercise?.toString() || '',
+        sleep: data?.lifestyle?.sleep?.toString() || '',
+        stress: data?.lifestyle?.stress?.toString() || '',
+        smoking: data?.lifestyle?.smoking ? 'Sì' : 'No',
+        alcohol: data?.lifestyle?.alcohol || '',
+        // Skin profile (step 3)
+        skinType: data?.skinProfile?.skinType || '',
+        concerns: data?.skinProfile?.concerns?.join(', ') || '',
+        routine: data?.skinProfile?.routine?.join(', ') || '',
+        products: data?.skinProfile?.products?.join(', ') || '',
+        // Goals (step 4)
+        goals: data?.goals?.goals?.join(', ') || '',
+        timeline: data?.goals?.timeline || '',
+        additionalInfo: data?.goals?.additionalInfo || '',
+        // Medical history (step 5)
+        conditions: data?.medicalHistory?.conditions?.join(', ') || '',
+        medications: data?.medicalHistory?.medications || '',
+        allergies: data?.medicalHistory?.allergies || '',
+        selectedProtocol: 'IN_PROGRESS'
+      };
+
+      const response = await fetch('/api/save-questionnaire', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(partialData)
+      });
+      
+      const result = await response.json();
+      if (!result.success) {
+        throw new Error(result.error || 'Errore nel salvataggio');
+      }
+      
+      return result;
+    } catch (error) {
+      console.error('❌ Errore salvataggio parziale:', error);
+      throw error;
+    }
+  };
+
+  const updateQuestionnaireData = async (stepData: any) => {
     const updatedData = { 
       ...questionnaireData, 
       ...stepData, 
@@ -76,6 +131,15 @@ export function CompactQuestionnaireWizard({ onComplete, onSaveProgress }: Compa
     const newCompletedSteps = [...completedSteps];
     newCompletedSteps[currentStep] = true;
     setCompletedSteps(newCompletedSteps);
+
+    // 💾 SALVATAGGIO AUTOMATICO PROGRESSIVO AD OGNI STEP
+    try {
+      console.log(`🔄 Salvataggio automatico step ${currentStep + 1}...`);
+      await savePartialData(updatedData, currentStep + 1);
+      console.log(`✅ Step ${currentStep + 1} salvato automaticamente!`);
+    } catch (error) {
+      console.error(`❌ Errore nel salvataggio step ${currentStep + 1}:`, error);
+    }
     
     if (onSaveProgress) {
       onSaveProgress(updatedData, currentStep);

@@ -72,9 +72,9 @@
 👉 **https://docs.google.com/spreadsheets/d/1ak8_S-_gF7_mk6nPTqsexEyDwI8ttmTvaSAJfhU24bU/edit**
 
 ### B) Aggiungi gli header nella RIGA 1
-Copia e incolla da A1 a U1:
+Copia e incolla da A1 a Y1 (25 colonne):
 ```
-Timestamp	Email	Telefono	Età	Alimentazione	Esercizio	Sonno	Stress	Fumo	Alcol	Tipo Pelle	Problematiche	Routine	Prodotti	Obiettivi	Timeline	Info Extra	Condizioni	Farmaci	Allergie	Protocollo
+Timestamp	Nome	Cognome	Email	Telefono	Consenso GDPR	Consenso Marketing	Consenso Foto	Alimentazione	Esercizio	Sonno	Stress	Fumo	Alcol	Tipo Pelle	Problematiche	Routine	Prodotti	Obiettivi	Timeline	Info Extra	Condizioni	Farmaci	Allergie	Protocollo
 ```
 
 ### C) Condividi con Service Account ⚠️ **FONDAMENTALE**

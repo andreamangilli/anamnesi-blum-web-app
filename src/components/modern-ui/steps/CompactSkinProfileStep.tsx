@@ -27,10 +27,16 @@ export function CompactSkinProfileStep({ data, onUpdate, onNext }: CompactSkinPr
     products: data?.skinProfile?.products || []
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onUpdate({ skinProfile: formData });
-    onNext();
+    try {
+      await onUpdate({ skinProfile: formData });
+      onNext();
+    } catch (error) {
+      console.error('❌ Errore nel salvare il profilo della pelle:', error);
+      // Procede comunque al prossimo step per non bloccare l'utente
+      onNext();
+    }
   };
 
   const skinTypes = ['💧 Secca', '🔆 Grassa', '⚖️ Mista', '😔 Sensibile', '✨ Normale'];
