@@ -199,7 +199,7 @@ export function CompactResultsStep({ data, onNext, isLoading }: CompactResultsSt
             <CheckCircle2 className="w-8 h-8 text-white" />
           </motion.div>
           <h2 className="text-2xl font-light text-[#3A5762] mb-2 blum-serif">
-            🎉 Analisi Completa BLUM
+            🎉 Analisi Completa BLUM - VERSIONE AGGIORNATA
           </h2>
           <p className="text-[#3A5762]/70 font-light">
             La tua consulenza estetica personalizzata è pronta. Protocollo HAURA su misura per te.
