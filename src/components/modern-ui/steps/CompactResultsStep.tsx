@@ -64,20 +64,78 @@ export function CompactResultsStep({ data, onNext, isLoading }: CompactResultsSt
       duration: '4-5 mesi',
       mainTech: 'Radiofrequenza',
       description: 'Protocollo completo per il ringiovanimento globale del viso',
-      phases: [
+      detailedSessions: [
         {
-          name: 'Fase 1: Rigenerazione e Stimolazione',
-          sessions: '1-4',
-          focus: 'Risveglio metabolismo cutaneo e neocollagenesi',
-          technologies: ['Radiofrequenza intensiva', 'Ultrasuoni rigenerativi', 'Veicolazione peptidi'],
-          results: ['Miglioramento texture cutanea', 'Inizio stimolazione collagene', 'Maggiore idratazione']
+          number: 1,
+          title: 'Prima Valutazione e Preparazione',
+          week: 'Settimana 1',
+          technologies: ['Radiofrequenza preparatoria', 'Ultrasuoni diagnostici', 'Veicolazione Acido Ialuronico'],
+          focus: 'Analisi cutanea approfondita e prima stimolazione delicata',
+          results: ['Pelle più idratata', 'Leggero miglioramento texture', 'Maggiore luminosità'],
+          notes: 'Sessione di adattamento per valutare la risposta cutanea'
         },
         {
-          name: 'Fase 2: Lifting e Perfezionamento',
-          sessions: '5-8',
-          focus: 'Consolidamento effetto lifting e perfezionamento qualità pelle',
-          technologies: ['Radiofrequenza mirata', 'Veicolazione Acido Ialuronico', 'Antiossidanti avanzati'],
-          results: ['Riduzione rughe visibile', 'Effetto lifting naturale', 'Luminosità e tonicità ottimali']
+          number: 2,
+          title: 'Attivazione Metabolismo Cellulare',
+          week: 'Settimana 3',
+          technologies: ['Radiofrequenza intensiva', 'Ultrasuoni rigenerativi', 'Veicolazione Peptidi bio-attivi'],
+          focus: 'Stimolazione profonda del metabolismo e neocollagenesi',
+          results: ['Inizio rassodamento', 'Miglioramento elasticità', 'Riduzione rughe superficiali'],
+          notes: 'Prima seduta intensiva per attivare i processi riparativi'
+        },
+        {
+          number: 3,
+          title: 'Consolidamento e Potenziamento',
+          week: 'Settimana 5',
+          technologies: ['Radiofrequenza mirata', 'Ultrasuoni focalizzati', 'Veicolazione Vitamina C + E'],
+          focus: 'Consolidamento risultati e potenziamento effetto anti-ossidante',
+          results: ['Tono cutaneo migliorato', 'Colorito più uniforme', 'Rughe meno evidenti'],
+          notes: 'Intensificazione del protocollo con focus su rughe specifiche'
+        },
+        {
+          number: 4,
+          title: 'Ottimizzazione Texture',
+          week: 'Settimana 7',
+          technologies: ['Radiofrequenza + Ultrasuoni combinati', 'Veicolazione Acido Glicolico'],
+          focus: 'Affinamento texture cutanea e levigazione superficie',
+          results: ['Pelle più liscia', 'Pori minimizzati', 'Effetto lifting visibile'],
+          notes: 'Trattamento combinato per massimizzare il rinnovamento cellulare'
+        },
+        {
+          number: 5,
+          title: 'Lifting Intensivo',
+          week: 'Settimana 9',
+          technologies: ['Radiofrequenza lifting mirata', 'Ultrasuoni HIFU-like', 'Veicolazione DMAE'],
+          focus: 'Effetto lifting intensivo su contorni viso e collo',
+          results: ['Ridefinizione ovale', 'Rassodamento collo', 'Effetto lifting marcato'],
+          notes: 'Seduta chiave per il rassodamento e ridefinizione dei contorni'
+        },
+        {
+          number: 6,
+          title: 'Perfezionamento e Luminosità',
+          week: 'Settimana 11',
+          technologies: ['Radiofrequenza modulata', 'Ultrasuoni esfolianti', 'Veicolazione Niacinamide'],
+          focus: 'Perfezionamento risultati e massimizzazione luminosità',
+          results: ['Pelle radiosa', 'Colorito perfetto', 'Texture vellutata'],
+          notes: 'Focus su luminosità e uniformità dell\'incarnato'
+        },
+        {
+          number: 7,
+          title: 'Stabilizzazione Avanzata',
+          week: 'Settimana 13',
+          technologies: ['Radiofrequenza stabilizzante', 'Veicolazione Collagene marino'],
+          focus: 'Stabilizzazione e consolidamento di tutti i risultati ottenuti',
+          results: ['Risultati consolidati', 'Pelle rigenerata', 'Effetto naturale duraturo'],
+          notes: 'Consolidamento finale prima dell\'ultima seduta'
+        },
+        {
+          number: 8,
+          title: 'Sigillatura e Mantenimento',
+          week: 'Settimana 15',
+          technologies: ['Radiofrequenza sigillante', 'Veicolazione Acido Ialuronico premium'],
+          focus: 'Sigillatura risultati e programmazione mantenimento',
+          results: ['Massimo risultato raggiunto', 'Pelle completamente rigenerata', 'Effetto lifting naturale ottimale'],
+          notes: 'Seduta finale con indicazioni per il mantenimento a lungo termine'
         }
       ]
     },
@@ -88,13 +146,60 @@ export function CompactResultsStep({ data, onNext, isLoading }: CompactResultsSt
       duration: '2-3 mesi',
       mainTech: 'Veicolazione Transdermica',
       description: 'Percorso per ottenere l&apos;effetto "pelle di porcellana"',
-      phases: [
+      detailedSessions: [
         {
-          name: 'Fase Unica: Illuminazione e Perfezionamento',
-          sessions: '1-6',
-          focus: 'Massimizzazione luminosità e affinamento texture',
-          technologies: ['Ultrasuoni esfolianti', 'Veicolazione Vitamina C', 'Radiofrequenza delicata'],
-          results: ['Pelle luminosa e uniforme', 'Pori minimizzati', 'Idratazione profonda', 'Effetto glass skin']
+          number: 1,
+          title: 'Preparazione Glass Skin',
+          week: 'Settimana 1',
+          technologies: ['Ultrasuoni esfolianti delicati', 'Veicolazione Acido Ialuronico puro'],
+          focus: 'Preparazione cutanea e prima idratazione profonda',
+          results: ['Pelle più morbida', 'Prima luminosità visibile', 'Texture levigata'],
+          notes: 'Base perfetta per il percorso glass skin'
+        },
+        {
+          number: 2,
+          title: 'Illuminazione Intensiva',
+          week: 'Settimana 2',
+          technologies: ['Veicolazione Vitamina C 20%', 'Ultrasuoni micro-esfolianti'],
+          focus: 'Massimizzazione luminosità e uniformità incarnato',
+          results: ['Luminosità intensa', 'Colorito uniforme', 'Macchie attenuate'],
+          notes: 'Trattamento chiave per l\'effetto radioso'
+        },
+        {
+          number: 3,
+          title: 'Perfezionamento Pori',
+          week: 'Settimana 4',
+          technologies: ['Veicolazione Niacinamide + Zinco', 'Ultrasuoni purificanti'],
+          focus: 'Minimizzazione pori e affinamento texture',
+          results: ['Pori visibilmente ridotti', 'Texture raffinata', 'Sebo equilibrato'],
+          notes: 'Seduta specifica per perfezionare la grana della pelle'
+        },
+        {
+          number: 4,
+          title: 'Idratazione Suprema',
+          week: 'Settimana 6',
+          technologies: ['Veicolazione Acido Ialuronico multi-peso', 'Radiofrequenza idratante'],
+          focus: 'Idratazione profonda multi-strato per effetto plump',
+          results: ['Pelle turgida', 'Rughe di disidratazione scomparse', 'Effetto rimpolpante'],
+          notes: 'Massima idratazione per l\'effetto glass skin'
+        },
+        {
+          number: 5,
+          title: 'Levigazione Finale',
+          week: 'Settimana 8',
+          technologies: ['Ultrasuoni leviganti', 'Veicolazione Peptidi liscianti'],
+          focus: 'Perfezionamento finale della superficie cutanea',
+          results: ['Superficie perfettamente liscia', 'Zero imperfezioni', 'Luminosità cristallina'],
+          notes: 'Rifinitura finale per la perfezione glass skin'
+        },
+        {
+          number: 6,
+          title: 'Sigillatura Glass Skin',
+          week: 'Settimana 10',
+          technologies: ['Veicolazione Ceramidi + Squalano', 'Radiofrequenza protettiva'],
+          focus: 'Sigillatura e protezione del risultato glass skin ottenuto',
+          results: ['Effetto glass skin completo', 'Pelle trasparente', 'Perfezione assoluta'],
+          notes: 'Risultato finale: pelle perfetta come vetro'
         }
       ]
     },
@@ -105,13 +210,96 @@ export function CompactResultsStep({ data, onNext, isLoading }: CompactResultsSt
       duration: '5-6 mesi',
       mainTech: 'Radiofrequenza Intensiva',
       description: 'Lifting non chirurgico per ridefinire i contorni del viso',
-      phases: [
+      detailedSessions: [
         {
-          name: 'Fase Unica: Rassodamento Intensivo',
-          sessions: '1-10',
-          focus: 'Effetto lifting non chirurgico e ridefinizione contorni',
-          technologies: ['Radiofrequenza tightening', 'Ultrasuoni profondi', 'Veicolazione DMAE'],
-          results: ['Ridefinizione ovale viso', 'Rassodamento intensivo', 'Effetto lifting progressivo']
+          number: 1,
+          title: 'Valutazione e Preparazione Lifting',
+          week: 'Settimana 1',
+          technologies: ['Radiofrequenza preparatoria', 'Mapping contorni viso'],
+          focus: 'Analisi dettagliata dei contorni e prima stimolazione',
+          results: ['Pelle più tonica', 'Leggero rassodamento iniziale'],
+          notes: 'Valutazione delle aree da trattare per il lifting'
+        },
+        {
+          number: 2,
+          title: 'Attivazione Collagene Profondo',
+          week: 'Settimana 3',
+          technologies: ['Radiofrequenza intensiva profonda', 'Ultrasuoni HIFU-like'],
+          focus: 'Stimolazione produzione collagene negli strati profondi',
+          results: ['Inizio contrazione tessuti', 'Miglioramento elasticità'],
+          notes: 'Prima seduta intensiva per attivare la neocollagenesi'
+        },
+        {
+          number: 3,
+          title: 'Rassodamento Guance e Zigomi',
+          week: 'Settimana 5',
+          technologies: ['RF mirata zona zigomatica', 'Veicolazione DMAE concentrato'],
+          focus: 'Rassodamento specifico della zona medio-facciale',
+          results: ['Zigomi più definiti', 'Guance rassodante', 'Sollevamento medio-facciale'],
+          notes: 'Focus specifico sulla ridefinizione degli zigomi'
+        },
+        {
+          number: 4,
+          title: 'Ridefinizione Ovale Mandibolare',
+          week: 'Settimana 7',
+          technologies: ['RF lifting bordo mandibolare', 'Ultrasuoni tightening'],
+          focus: 'Ridefinizione precisa del bordo mandibolare',
+          results: ['Ovale più definito', 'Riduzione jowls', 'Jawline marcata'],
+          notes: 'Seduta chiave per ridefinire l\'ovale del viso'
+        },
+        {
+          number: 5,
+          title: 'Rassodamento Collo e Sottomento',
+          week: 'Settimana 9',
+          technologies: ['RF intensiva collo', 'Veicolazione peptidi tensori'],
+          focus: 'Trattamento intensivo di collo e area sottomento',
+          results: ['Collo più sodo', 'Riduzione doppio mento', 'Profilo migliorato'],
+          notes: 'Estensione del lifting alla zona collo'
+        },
+        {
+          number: 6,
+          title: 'Consolidamento Lifting',
+          week: 'Settimana 11',
+          technologies: ['RF tightening totale', 'Ultrasuoni consolidanti'],
+          focus: 'Consolidamento di tutti i risultati di rassodamento',
+          results: ['Lifting visibile consolidato', 'Contorni netti', 'Effetto duraturo'],
+          notes: 'Consolidamento intermedio dei risultati'
+        },
+        {
+          number: 7,
+          title: 'Perfezionamento Contorni',
+          week: 'Settimana 13',
+          technologies: ['RF sculpting mirata', 'Veicolazione silicio organico'],
+          focus: 'Perfezionamento finale dei contorni facciali',
+          results: ['Contorni perfetti', 'Definizione massima', 'Sculpting facciale'],
+          notes: 'Rifinitura artistica dei contorni'
+        },
+        {
+          number: 8,
+          title: 'Intensificazione Anti-Gravità',
+          week: 'Settimana 15',
+          technologies: ['RF anti-gravity', 'Ultrasuoni lifting verticali'],
+          focus: 'Massimo effetto anti-gravità su tutti i tessuti',
+          results: ['Sollevamento massimo', 'Effetto anti-gravity', 'Tessuti sospesi'],
+          notes: 'Seduta di massima intensità anti-gravità'
+        },
+        {
+          number: 9,
+          title: 'Stabilizzazione Lifting',
+          week: 'Settimana 17',
+          technologies: ['RF stabilizzante', 'Veicolazione collagene marino'],
+          focus: 'Stabilizzazione finale di tutti i risultati lifting',
+          results: ['Lifting stabile', 'Risultati consolidati', 'Effetto naturale'],
+          notes: 'Stabilizzazione prima della seduta finale'
+        },
+        {
+          number: 10,
+          title: 'Lifting Definitivo',
+          week: 'Settimana 19',
+          technologies: ['RF sigillante lifting', 'Protocollo mantenimento'],
+          focus: 'Completamento lifting e programmazione mantenimento',
+          results: ['Lifting completo', 'Risultato definitivo', 'Ringiovanimento totale'],
+          notes: 'Risultato finale: lifting non chirurgico completo'
         }
       ]
     },
@@ -122,13 +310,78 @@ export function CompactResultsStep({ data, onNext, isLoading }: CompactResultsSt
       duration: '4-5 mesi',
       mainTech: 'Ultrasuoni',
       description: 'Correzione esiti cicatriziali e discromici da acne',
-      phases: [
+      detailedSessions: [
         {
-          name: 'Fase Unica: Correzione e Rigenerazione',
-          sessions: '1-8',
-          focus: 'Uniformità colorito e miglioramento cicatrici',
-          technologies: ['Ultrasuoni rigenerativi', 'Veicolazione depigmentanti', 'Radiofrequenza riparatrice'],
-          results: ['Riduzione macchie evidenti', 'Levigatura cicatrici', 'Texture uniforme']
+          number: 1,
+          title: 'Valutazione e Preparazione Correttiva',
+          week: 'Settimana 1',
+          technologies: ['Ultrasuoni diagnostici', 'Mapping cicatrici e macchie'],
+          focus: 'Analisi dettagliata delle imperfezioni e preparazione cutanea',
+          results: ['Pelle preparata', 'Prime macchie attenuate', 'Texture migliorata'],
+          notes: 'Valutazione precisa per trattamento personalizzato'
+        },
+        {
+          number: 2,
+          title: 'Attivazione Rigenerativa',
+          week: 'Settimana 3',
+          technologies: ['Ultrasuoni rigenerativi intensivi', 'Veicolazione Vitamina C + Arbutina'],
+          focus: 'Stimolazione rigenerazione cellulare e schiarimento',
+          results: ['Accelerazione turnover', 'Macchie più chiare', 'Pelle più luminosa'],
+          notes: 'Prima seduta intensiva per attivare la rigenerazione'
+        },
+        {
+          number: 3,
+          title: 'Levigazione Cicatrici',
+          week: 'Settimana 5',
+          technologies: ['Ultrasuoni micro-dermoabrasivi', 'Veicolazione TCA peeling'],
+          focus: 'Levigazione specifica delle cicatrici atrofiche',
+          results: ['Cicatrici meno profonde', 'Superficie più liscia', 'Texture uniformata'],
+          notes: 'Trattamento specifico per levigare le cicatrici'
+        },
+        {
+          number: 4,
+          title: 'Correzione Discromie',
+          week: 'Settimana 7',
+          technologies: ['Veicolazione Acido Kojico + Retinolo', 'Ultrasuoni depigmentanti'],
+          focus: 'Correzione intensiva delle macchie post-infiammatorie',
+          results: ['Macchie significativamente schiarite', 'Tono più uniforme', 'Colorito omogeneo'],
+          notes: 'Focus specifico sulle discromie residue'
+        },
+        {
+          number: 5,
+          title: 'Riparazione Profonda',
+          week: 'Settimana 9',
+          technologies: ['Ultrasuoni riparativi', 'Veicolazione Fattori di Crescita EGF'],
+          focus: 'Riparazione profonda dei tessuti danneggiati',
+          results: ['Tessuti rigenerati', 'Cicatrici riparate', 'Qualità cutanea migliorata'],
+          notes: 'Riparazione profonda a livello cellulare'
+        },
+        {
+          number: 6,
+          title: 'Perfezionamento Texture',
+          week: 'Settimana 11',
+          technologies: ['Ultrasuoni leviganti finali', 'Veicolazione Acido Ialuronico riparativo'],
+          focus: 'Perfezionamento finale della texture cutanea',
+          results: ['Texture perfettamente uniforme', 'Cicatrici quasi impercettibili', 'Pelle levigata'],
+          notes: 'Rifinitura finale della texture'
+        },
+        {
+          number: 7,
+          title: 'Consolidamento Correttivo',
+          week: 'Settimana 13',
+          technologies: ['Radiofrequenza riparatrice', 'Veicolazione Ceramidi + Pantenolo'],
+          focus: 'Consolidamento di tutti i risultati correttivi',
+          results: ['Risultati consolidati', 'Pelle riparata stabilmente', 'Colorito uniforme duraturo'],
+          notes: 'Stabilizzazione prima della seduta finale'
+        },
+        {
+          number: 8,
+          title: 'Finalizzazione Post-Acne',
+          week: 'Settimana 15',
+          technologies: ['Protocollo finale protettivo', 'Veicolazione SPF + Antiossidanti'],
+          focus: 'Finalizzazione e protezione dei risultati ottenuti',
+          results: ['Correzione completa', 'Pelle perfettamente uniforme', 'Zero imperfezioni visibili'],
+          notes: 'Risultato finale: pelle completamente corretta'
         }
       ]
     }
@@ -199,7 +452,7 @@ export function CompactResultsStep({ data, onNext, isLoading }: CompactResultsSt
             <CheckCircle2 className="w-8 h-8 text-white" />
           </motion.div>
           <h2 className="text-2xl font-light text-[#3A5762] mb-2 blum-serif">
-            🎉 Analisi Completa BLUM - VERSIONE AGGIORNATA
+            🎉 Analisi Completa BLUM
           </h2>
           <p className="text-[#3A5762]/70 font-light">
             La tua consulenza estetica personalizzata è pronta. Protocollo HAURA su misura per te.
@@ -331,53 +584,82 @@ export function CompactResultsStep({ data, onNext, isLoading }: CompactResultsSt
             </div>
           </div>
 
-          {/* Timeline delle Fasi */}
-          <div className="space-y-6">
-            <h5 className="font-medium text-[#3A5762] mb-4">📅 Timeline di Sviluppo della Terapia</h5>
-            {currentProtocol.phases.map((phase, index) => (
-              <motion.div 
-                key={index}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="border border-[#DFC8C2]/50 rounded-lg p-6 bg-white/50"
-              >
-                <div className="flex items-center mb-3">
-                  <div className="w-8 h-8 bg-[#3A5762] text-white rounded-full flex items-center justify-center mr-3 text-sm font-bold">
-                    {index + 1}
-                  </div>
-                  <h6 className="font-medium text-[#3A5762]">{phase.name}</h6>
-                </div>
-                
-                <p className="text-sm text-[#3A5762]/70 mb-4"><strong>Sedute {phase.sessions}:</strong> {phase.focus}</p>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <p className="font-medium text-[#3A5762] mb-2">🔬 Tecnologie HAURA Utilizzate:</p>
-                    <ul className="text-sm text-[#3A5762]/70 space-y-1">
-                      {phase.technologies.map((tech, techIndex) => (
-                        <li key={techIndex} className="flex items-center">
-                          <Zap className="w-3 h-3 mr-2 text-[#3A5762]" />
-                          {tech}
-                        </li>
-                      ))}
-                    </ul>
+          {/* Timeline Cronologica Dettagliata Seduta per Seduta */}
+          <div className="space-y-4">
+            <h5 className="font-medium text-[#3A5762] mb-6">📅 Timeline Cronologica Completa - Seduta per Seduta</h5>
+            <div className="relative">
+              {/* Linea temporale verticale */}
+              <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-[#DFC8C2]"></div>
+              
+              {currentProtocol.detailedSessions.map((session, index) => (
+                <motion.div 
+                  key={index}
+                  initial={{ opacity: 0, x: -30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.08 }}
+                  className="relative pl-12 pb-8"
+                >
+                  {/* Numero seduta sulla timeline */}
+                  <div className="absolute left-0 w-8 h-8 bg-[#3A5762] text-white rounded-full flex items-center justify-center text-sm font-bold shadow-lg">
+                    {session.number}
                   </div>
                   
-                  <div>
-                    <p className="font-medium text-[#3A5762] mb-2">✨ Risultati Attesi:</p>
-                    <ul className="text-sm text-[#3A5762]/70 space-y-1">
-                      {phase.results.map((result, resultIndex) => (
-                        <li key={resultIndex} className="flex items-center">
-                          <Star className="w-3 h-3 mr-2 text-[#3A5762]" />
-                          {result}
-                        </li>
-                      ))}
-                    </ul>
+                  {/* Card della seduta */}
+                  <div className="border border-[#DFC8C2]/50 rounded-xl p-6 bg-gradient-to-r from-white to-[#F0E7E2]/20 shadow-sm">
+                    <div className="mb-4">
+                      <div className="flex items-center justify-between mb-2">
+                        <h6 className="font-semibold text-[#3A5762] text-lg">{session.title}</h6>
+                        <Badge variant="outline" className="text-[#3A5762] border-[#3A5762]/50">
+                          {session.week}
+                        </Badge>
+                      </div>
+                      <p className="text-[#3A5762]/70 text-sm italic mb-3">{session.focus}</p>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {/* Tecnologie utilizzate */}
+                      <div>
+                        <p className="font-medium text-[#3A5762] mb-3 flex items-center">
+                          <Zap className="w-4 h-4 mr-2" />
+                          Tecnologie HAURA:
+                        </p>
+                        <ul className="text-sm text-[#3A5762]/70 space-y-2">
+                          {session.technologies.map((tech, techIndex) => (
+                            <li key={techIndex} className="flex items-start">
+                              <div className="w-2 h-2 bg-[#3A5762]/40 rounded-full mt-1.5 mr-3 flex-shrink-0"></div>
+                              <span>{tech}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      
+                      {/* Risultati attesi */}
+                      <div>
+                        <p className="font-medium text-[#3A5762] mb-3 flex items-center">
+                          <Star className="w-4 h-4 mr-2" />
+                          Risultati Attesi:
+                        </p>
+                        <ul className="text-sm text-[#3A5762]/70 space-y-2">
+                          {session.results.map((result, resultIndex) => (
+                            <li key={resultIndex} className="flex items-start">
+                              <div className="w-2 h-2 bg-green-500 rounded-full mt-1.5 mr-3 flex-shrink-0"></div>
+                              <span>{result}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                    
+                    {/* Note specialistiche */}
+                    <div className="mt-4 p-3 bg-[#3A5762]/5 rounded-lg border-l-4 border-[#3A5762]">
+                      <p className="text-xs text-[#3A5762]/60">
+                        <strong>💡 Note Specialistiche:</strong> {session.notes}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
+            </div>
           </div>
         </CardContent>
       </Card>

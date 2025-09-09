@@ -76,16 +76,32 @@ export function CompactGoalsStep({ data, onUpdate, onNext }: CompactGoalsStepPro
               <Label className="text-sm font-medium mb-3 block">🌟 Cosa vorresti ottenere? *</Label>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                 {goalOptions.map((goal) => (
-                  <div key={goal} className="flex items-center space-x-2 p-2 border border-slate-200 rounded-lg hover:border-blum-secondary">
-                    <Checkbox
-                      id={`goal-${goal}`}
-                      checked={formData.goals.includes(goal)}
-                      onCheckedChange={() => updateGoals(goal)}
-                    />
-                    <Label htmlFor={`goal-${goal}`} className="text-sm cursor-pointer">
-                      {goal}
-                    </Label>
+                <motion.div 
+                  key={goal} 
+                  className={`flex items-center space-x-3 p-3 border-2 rounded-lg cursor-pointer transition-all ${
+                    formData.goals.includes(goal)
+                      ? 'border-[#3A5762] bg-[#3A5762]/10 text-[#3A5762] shadow-md' 
+                      : 'border-gray-200 hover:border-[#3A5762]/50 hover:bg-gray-50'
+                  }`}
+                  onClick={() => updateGoals(goal)}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <div className={`w-5 h-5 border-2 rounded-md flex items-center justify-center ${
+                    formData.goals.includes(goal)
+                      ? 'border-[#3A5762] bg-[#3A5762]' 
+                      : 'border-gray-300'
+                  }`}>
+                    {formData.goals.includes(goal) && (
+                      <CheckCircle2 className="w-3 h-3 text-white" />
+                    )}
                   </div>
+                  <Label className={`text-sm cursor-pointer font-medium ${
+                    formData.goals.includes(goal) ? 'text-[#3A5762]' : 'text-gray-600'
+                  }`}>
+                    {goal}
+                  </Label>
+                </motion.div>
                 ))}
               </div>
             </div>
@@ -93,17 +109,36 @@ export function CompactGoalsStep({ data, onUpdate, onNext }: CompactGoalsStepPro
             {/* Timeline */}
             <div className="mb-6">
               <Label className="text-sm font-medium mb-3 block">⏱️ Tempistiche *</Label>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {timelineOptions.map((option) => (
-                  <div key={option.value} className={`p-3 border rounded-lg cursor-pointer text-center transition-colors ${
-                    formData.timeline === option.value 
-                      ? 'border-blum-primary bg-blum-secondary/50 text-blum-primary' 
-                      : 'border-slate-200 hover:border-blum-secondary'
-                  }`}
-                  onClick={() => setFormData({ ...formData, timeline: option.value })}
+                  <motion.div 
+                    key={option.value} 
+                    className={`p-4 border-2 rounded-lg cursor-pointer text-center transition-all ${
+                      formData.timeline === option.value 
+                        ? 'border-[#3A5762] bg-[#3A5762]/10 text-[#3A5762] shadow-md scale-105' 
+                        : 'border-gray-200 hover:border-[#3A5762]/50 hover:bg-gray-50'
+                    }`}
+                    onClick={() => setFormData({ ...formData, timeline: option.value })}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
-                    <span className="text-sm font-medium">{option.label}</span>
-                  </div>
+                    <div className="flex flex-col items-center space-y-2">
+                      <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
+                        formData.timeline === option.value 
+                          ? 'border-[#3A5762] bg-[#3A5762]' 
+                          : 'border-gray-300'
+                      }`}>
+                        {formData.timeline === option.value && (
+                          <CheckCircle2 className="w-4 h-4 text-white" />
+                        )}
+                      </div>
+                      <span className={`text-sm font-medium ${
+                        formData.timeline === option.value ? 'text-[#3A5762]' : 'text-gray-600'
+                      }`}>
+                        {option.label}
+                      </span>
+                    </div>
+                  </motion.div>
                 ))}
               </div>
             </div>

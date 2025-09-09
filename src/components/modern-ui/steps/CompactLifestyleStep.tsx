@@ -150,35 +150,64 @@ export function CompactLifestyleStep({ data, onUpdate, onNext }: CompactLifestyl
 
             {/* Quick Options */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="flex items-center space-x-3 p-3 border border-slate-200 rounded-lg">
-                <Checkbox
-                  id="smoking"
-                  checked={formData.smoking}
-                  onCheckedChange={(checked) => setFormData({ ...formData, smoking: !!checked })}
-                />
-                <Label htmlFor="smoking" className="text-sm cursor-pointer">
+              <motion.div 
+                className={`flex items-center space-x-3 p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                  formData.smoking 
+                    ? 'border-[#3A5762] bg-[#3A5762]/10 text-[#3A5762] shadow-md' 
+                    : 'border-gray-200 hover:border-[#3A5762]/50 hover:bg-gray-50'
+                }`}
+                onClick={() => setFormData({ ...formData, smoking: !formData.smoking })}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <div className={`w-5 h-5 border-2 rounded-md flex items-center justify-center ${
+                  formData.smoking 
+                    ? 'border-[#3A5762] bg-[#3A5762]' 
+                    : 'border-gray-300'
+                }`}>
+                  {formData.smoking && (
+                    <CheckCircle2 className="w-3 h-3 text-white" />
+                  )}
+                </div>
+                <Label className={`text-sm cursor-pointer font-medium ${
+                  formData.smoking ? 'text-[#3A5762]' : 'text-gray-600'
+                }`}>
                   🚬 Fumo
                 </Label>
-              </div>
+              </motion.div>
 
               <div>
                 <Label className="text-sm font-medium mb-2 block">🍷 Consumo di Alcol</Label>
-                <div className="grid grid-cols-2 gap-1">
+                <div className="grid grid-cols-2 gap-2">
                   {alcoholOptions.map((option) => (
-                    <div key={option.value} className="flex items-center space-x-2 p-2 border border-slate-200 rounded hover:border-blum-secondary">
-                      <input
-                        type="radio"
-                        id={`alcohol-${option.value}`}
-                        name="alcohol"
-                        value={option.value}
-                        checked={formData.alcohol === option.value}
-                        onChange={(e) => setFormData({ ...formData, alcohol: e.target.value })}
-                        className="w-3 h-3"
-                      />
-                      <Label htmlFor={`alcohol-${option.value}`} className="text-sm cursor-pointer">
-                        {option.label}
-                      </Label>
-                    </div>
+                    <motion.div 
+                      key={option.value} 
+                      className={`p-3 border-2 rounded-lg cursor-pointer transition-all ${
+                        formData.alcohol === option.value 
+                          ? 'border-[#3A5762] bg-[#3A5762]/10 text-[#3A5762] shadow-md' 
+                          : 'border-gray-200 hover:border-[#3A5762]/50 hover:bg-gray-50'
+                      }`}
+                      onClick={() => setFormData({ ...formData, alcohol: option.value })}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <div className="flex items-center justify-center space-x-2">
+                        <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
+                          formData.alcohol === option.value 
+                            ? 'border-[#3A5762] bg-[#3A5762]' 
+                            : 'border-gray-300'
+                        }`}>
+                          {formData.alcohol === option.value && (
+                            <div className="w-2 h-2 bg-white rounded-full"></div>
+                          )}
+                        </div>
+                        <span className={`text-sm font-medium ${
+                          formData.alcohol === option.value ? 'text-[#3A5762]' : 'text-gray-600'
+                        }`}>
+                          {option.label}
+                        </span>
+                      </div>
+                    </motion.div>
                   ))}
                 </div>
               </div>

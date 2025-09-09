@@ -67,17 +67,36 @@ export function CompactSkinProfileStep({ data, onUpdate, onNext }: CompactSkinPr
             {/* Skin Type */}
             <div className="mb-6">
               <Label className="text-sm font-medium mb-3 block">🌸 Tipo di Pelle *</Label>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                 {skinTypes.map((type) => (
-                  <div key={type} className={`p-3 border rounded-lg cursor-pointer text-center transition-colors ${
-                    formData.skinType === type 
-                      ? 'border-blum-primary bg-blum-secondary/50 text-blum-primary' 
-                      : 'border-slate-200 hover:border-blum-secondary'
-                  }`}
-                  onClick={() => setFormData({ ...formData, skinType: type })}
+                  <motion.div 
+                    key={type} 
+                    className={`p-4 border-2 rounded-lg cursor-pointer text-center transition-all ${
+                      formData.skinType === type 
+                        ? 'border-[#3A5762] bg-[#3A5762]/10 text-[#3A5762] shadow-md scale-105' 
+                        : 'border-gray-200 hover:border-[#3A5762]/50 hover:bg-gray-50'
+                    }`}
+                    onClick={() => setFormData({ ...formData, skinType: type })}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
-                    <span className="text-sm font-medium">{type}</span>
-                  </div>
+                    <div className="flex flex-col items-center space-y-2">
+                      <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
+                        formData.skinType === type 
+                          ? 'border-[#3A5762] bg-[#3A5762]' 
+                          : 'border-gray-300'
+                      }`}>
+                        {formData.skinType === type && (
+                          <CheckCircle2 className="w-4 h-4 text-white" />
+                        )}
+                      </div>
+                      <span className={`text-sm font-medium ${
+                        formData.skinType === type ? 'text-[#3A5762]' : 'text-gray-600'
+                      }`}>
+                        {type}
+                      </span>
+                    </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
@@ -106,16 +125,32 @@ export function CompactSkinProfileStep({ data, onUpdate, onNext }: CompactSkinPr
               <Label className="text-sm font-medium mb-3 block">💆‍♀️ Routine Attuale</Label>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                 {routineSteps.map((step) => (
-                  <div key={step} className="flex items-center space-x-2 p-2 border border-slate-200 rounded-lg hover:border-blum-secondary">
-                    <Checkbox
-                      id={`routine-${step}`}
-                      checked={formData.routine.includes(step)}
-                      onCheckedChange={() => updateArray('routine', step)}
-                    />
-                    <Label htmlFor={`routine-${step}`} className="text-sm cursor-pointer">
+                  <motion.div 
+                    key={step} 
+                    className={`flex items-center space-x-3 p-3 border-2 rounded-lg cursor-pointer transition-all ${
+                      formData.routine.includes(step)
+                        ? 'border-[#3A5762] bg-[#3A5762]/10 text-[#3A5762] shadow-md' 
+                        : 'border-gray-200 hover:border-[#3A5762]/50 hover:bg-gray-50'
+                    }`}
+                    onClick={() => updateArray('routine', step)}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <div className={`w-5 h-5 border-2 rounded-md flex items-center justify-center ${
+                      formData.routine.includes(step)
+                        ? 'border-[#3A5762] bg-[#3A5762]' 
+                        : 'border-gray-300'
+                    }`}>
+                      {formData.routine.includes(step) && (
+                        <CheckCircle2 className="w-3 h-3 text-white" />
+                      )}
+                    </div>
+                    <Label className={`text-sm cursor-pointer font-medium ${
+                      formData.routine.includes(step) ? 'text-[#3A5762]' : 'text-gray-600'
+                    }`}>
                       {step}
                     </Label>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
@@ -125,16 +160,32 @@ export function CompactSkinProfileStep({ data, onUpdate, onNext }: CompactSkinPr
               <Label className="text-sm font-medium mb-3 block">🛍️ Preferenze Prodotti</Label>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 {productTypes.map((product) => (
-                  <div key={product} className="flex items-center space-x-2 p-2 border border-slate-200 rounded-lg hover:border-blum-secondary">
-                    <Checkbox
-                      id={`product-${product}`}
-                      checked={formData.products.includes(product)}
-                      onCheckedChange={() => updateArray('products', product)}
-                    />
-                    <Label htmlFor={`product-${product}`} className="text-sm cursor-pointer">
+                  <motion.div 
+                    key={product} 
+                    className={`flex items-center space-x-3 p-3 border-2 rounded-lg cursor-pointer transition-all ${
+                      formData.products.includes(product)
+                        ? 'border-[#3A5762] bg-[#3A5762]/10 text-[#3A5762] shadow-md' 
+                        : 'border-gray-200 hover:border-[#3A5762]/50 hover:bg-gray-50'
+                    }`}
+                    onClick={() => updateArray('products', product)}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <div className={`w-5 h-5 border-2 rounded-md flex items-center justify-center ${
+                      formData.products.includes(product)
+                        ? 'border-[#3A5762] bg-[#3A5762]' 
+                        : 'border-gray-300'
+                    }`}>
+                      {formData.products.includes(product) && (
+                        <CheckCircle2 className="w-3 h-3 text-white" />
+                      )}
+                    </div>
+                    <Label className={`text-sm cursor-pointer font-medium ${
+                      formData.products.includes(product) ? 'text-[#3A5762]' : 'text-gray-600'
+                    }`}>
                       {product}
                     </Label>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
